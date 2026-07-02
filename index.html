@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaX - Premium Car Showroom</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body> 
+    <div id="loader" class="loader-container">
+        <div class="loader-ring"></div>
+        <div class="loader-text">NOVAX</div>
+    </div>
+
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <nav id="navbar" class="glass-nav">
+        <div class="nav-container">
+            <a href="#" class="logo-container">
+                <img src="novax.jpeg" alt="NovaX Logo" class="brand-logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#brands">Brands</a></li>
+                <li><a href="#showroom">Showroom</a></li>
+                <li><a href="#compare">Compare</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-primary ripple" onclick="openBookingModal()">Book a Drive</button>
+                <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <canvas id="particle-canvas"></canvas>
+        <div class="hero-content fade-in">
+            <h1 class="animated-heading">Experience True <span class="text-red">Luxury</span></h1>
+            <p>Discover the world's most prestigious automotive masterpieces at NovaX.</p>
+            <div class="hero-buttons">
+                <a href="#showroom" class="btn-primary glowing-btn ripple">Explore Collection</a>
+                <a href="#brands" class="btn-secondary ripple">Our Brands</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <section id="search-filter" class="search-section glass-panel">
+        <div class="container">
+            <h2>Find Your Perfect Match</h2>
+            <div class="filter-grid">
+                <input type="text" id="searchInput" placeholder="Search by model or brand...">
+                <select id="brandFilter">
+                    <option value="">All Brands</option>
+                    <option value="BMW">BMW</option>
+                    <option value="Mercedes-Benz">Mercedes-Benz</option>
+                    <option value="Tesla">Tesla</option>
+                    <option value="Lamborghini">Lamborghini</option>
+                    <option value="Tata">Tata</option>
+                    <option value="Porsche">Porsche</option>
+                </select>
+                <select id="fuelFilter">
+                    <option value="">All Fuel Types</option>
+                    <option value="Petrol">Petrol</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Hybrid">Hybrid</option>
+                </select>
+                <select id="sortFilter">
+                    <option value="">Sort By</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+                <button class="btn-primary ripple" onclick="filterCars()">Search Vehicles</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="brands" class="brands-section">
+        <div class="container text-center">
+            <h2 class="section-title">Global <span class="text-red">Marques</span></h2>
+            <div class="brand-grid" id="brand-grid">
+                </div>
+        </div>
+    </section>
+
+    <section id="showroom" class="showroom-section">
+        <div class="container">
+            <h2 class="section-title">The <span class="text-red">Collection</span></h2>
+            <div class="car-grid" id="car-grid">
+                </div>
+        </div>
+    </section>
+
+    <section id="compare" class="compare-section">
+        <div class="container text-center">
+            <h2 class="section-title">Compare <span class="text-red">Vehicles</span></h2>
+            <p>Select two vehicles from the showroom to compare their specifications.</p>
+            <div id="compare-container" class="compare-container">
+                </div>
+            <button class="btn-secondary mt-2 hidden" id="clear-compare-btn" onclick="clearComparison()">Clear Comparison</button>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text slide-in-left">
+                    <h2 class="section-title">The <span class="text-red">NovaX</span> Story</h2>
+                    <p>Established in 2026, NovaX represents the pinnacle of automotive retail. We don't just sell cars; we curate automotive excellence. Our mission is to bridge the gap between engineering perfection and discerning enthusiasts.</p>
+                    <ul class="achievements">
+                        <li><i class="fas fa-trophy"></i> Best Luxury Dealership 2025</li>
+                        <li><i class="fas fa-users"></i> 10,000+ Satisfied Clients</li>
+                        <li><i class="fas fa-globe"></i> Global Sourcing Network</li>
+                    </ul>
+                </div>
+                <div class="about-stats slide-in-right glass-panel">
+                    <div class="stat-box">
+                        <h3 class="counter" data-target="35">0</h3>
+                        <p>Global Brands</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3 class="counter" data-target="150">0</h3>
+                        <p>Exclusive Models</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Connect <span class="text-red">With Us</span></h2>
+            <div class="contact-grid">
+                <div class="contact-info glass-panel">
+                    <h3>Contact Information</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> NovaX Tower, Luxury Avenue, Pune, Maharashtra</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> vip@novax.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sat: 9:00 AM - 8:00 PM</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="contact-map glass-panel">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121059.0436043232!2d73.78056555!3d18.52460355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1689234567890!5m2!1sen!2sin" width="100%" height="100%" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <img src="novax.jpeg" href="Nova x" alt="NovaX Logo" class="footer-logo">
+                <p>The Ultimate Destination for Luxury Automotive.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="#home">Home</a>
+                <a href="#showroom">Showroom</a>
+                <a href="#compare">Compare</a>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NovaX Premium Car Showroom. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div id="details-modal" class="modal">
+        <div class="modal-content glass-panel">
+            <span class="close-btn" onclick="closeModal('details-modal')">&times;</span>
+            <div id="modal-details-body">
+                </div>
+        </div>
+    </div>
+
+    <div id="view360-modal" class="modal">
+        <div class="modal-content glass-panel view360-container">
+            <span class="close-btn" onclick="closeModal('view360-modal')">&times;</span>
+            <h2 class="text-center">360° <span class="text-red">Experience</span></h2>
+            <p class="text-center text-gray">Drag to rotate</p>
+            <div class="view360-wrapper" id="view360-wrapper">
+                <img id="view360-img" src="" alt="360 View">
+                <div class="view360-overlay" id="view360-overlay"></div>
+            </div>
+            <div class="view360-controls">
+                <button class="btn-secondary" onclick="autoRotate360()">Auto Rotate</button>
+                <button class="btn-secondary" onclick="toggleFullscreen360()"><i class="fas fa-expand"></i> Fullscreen</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="booking-modal" class="modal">
+        <div class="modal-content glass-panel booking-form-container">
+            <span class="close-btn" onclick="closeModal('booking-modal')">&times;</span>
+            <h2>Book a <span class="text-red">Test Drive</span></h2>
+            <form id="booking-form" onsubmit="handleBooking(event)">
+                <div class="form-group">
+                    <input type="text" id="b-name" required placeholder="Full Name">
+                    <input type="tel" id="b-phone" required placeholder="Mobile Number">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="b-email" required placeholder="Email Address">
+                    <input type="text" id="b-city" required placeholder="City">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="b-car" required placeholder="Car Brand & Model (e.g. BMW M8)">
+                    <input type="date" id="b-date" required>
+                </div>
+                <textarea id="b-message" rows="3" placeholder="Any special requests?"></textarea>
+                <button type="submit" class="btn-primary ripple full-width">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="success-popup" class="success-popup glass-panel">
+        <i class="fas fa-check-circle text-red" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+        <h3>Booking Confirmed!</h3>
+        <p>Our concierge will contact you shortly.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

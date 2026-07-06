@@ -1,8 +1,17 @@
 /* ==========================================================================
    CAR DATABASE (Mocking detailed structural data for functionality)
    Note: Using high-quality Unsplash URLs to fulfill the "real images" rule.
-   ========================================================================== */
-   const carDatabase = [
+  
+ ========================================================================== */
+const SUPABASE_URL = "https://rrivanxeigmmyurgyfya.supabase.co";
+
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJyaXZhbnhlaWdtbXl1cmd5ZnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMwOTE1NTQsImV4cCI6MjA5ODY2NzU1NH0.UEcZLpbrUyO_W2-MOJT5owGXdJ54RDaEGbkhfpWrJro";
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+ const carDatabase = [
     {
         id: 1,
         brand: "BMW",
@@ -336,18 +345,34 @@ function openBookingModal(carName = "") {
     openModal("booking-modal");
 }
 
-function handleBooking(e) {
-    e.preventDefault();
-    closeModal("booking-modal");
-    
-    // Show success popup
-    const popup = document.getElementById("success-popup");
-    popup.style.display = "block";
-    
-    setTimeout(() => {
-        popup.style.display = "none";
-        document.getElementById("booking-form").reset();
-    }, 3000);
+async function handleBooking(e) {
+  e.preventDefault();
+
+  const booking = {
+    name: document.getElementById("b-name").value,
+    mobile: document.getElementById("b-phone").value,
+    email: document.getElementById("b-email").value,
+    car_model: document.getElementById("b-car").value,
+    date: document.getElementById("b-date").value,
+    city: document.getElementById("b-city").value,
+    message: document.getElementById("b-message").value
+  };
+
+  const { error } = await supabaseClient
+    .from("bookings")
+    .insert([booking]);
+
+  if (error) {
+    alert("Booking Failed");
+    console.log(error);
+    return;
+  }
+
+  alert("Booking Successful");
+
+  document.getElementById("booking-form").reset();
+
+  closeModal("booking-modal");
 }
 
 /* ==========================================================================
@@ -620,4 +645,76 @@ function initCounters() {
     }, { threshold: 0.5 });
 
     counters.forEach(counter => observer.observe(counter));
+}
+const API_URL = "http://localhost:5000/api";
+
+function adminLogin() {
+  const user = document.getElementById("adminUser").value;
+  const pass = document.getElementById("adminPass").value;
+
+  if (user === "admin" && pass === "1234") {
+    document.getElementById("admin-login").classList.add("hidden");
+    document.getElementById("admin-dashboard").classList.remove("hidden");
+    alert("Admin Login Successful");
+  } else {
+    alert("Wrong username or password");
+  }
+}
+
+async function addCar() {
+  const car = {
+    company: document.getElementById("carCompany").value,
+    model: document.getElementById("carModel").value,
+    price: document.getElementById("carPrice").value,
+    fuel: document.getElementById("carFuel").value,
+    mileage: document.getElementById("carMileage").value,
+    image: document.getElementById("carImage").value,
+    details: document.getElementById("carDetails").value
+  };
+
+  const res = await fetch(`${API_URL}/cars`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(car)
+  });
+
+  const data = await res.json();
+  alert("Car Added Successfully");
+  console.log(data);
+}
+
+async function loadBookings() {
+
+  const { data, error } = await supabaseClient
+    .from("bookings")
+    .select("*");
+
+  if (error) {
+    console.error(error);
+    alert(error.message);
+    return;
+}
+
+  const bookingList = document.getElementById("booking-list");
+
+  bookingList.innerHTML = "";
+
+  data.forEach(b => {
+
+    bookingList.innerHTML += `
+      <div class="booking-card">
+        <h4>${b.name}</h4>
+        <p>Mobile : ${b.mobile}</p>
+        <p>Email : ${b.email}</p>
+        <p>Car : ${b.car_model}</p>
+        <p>Date : ${b.date}</p>
+        <p>City : ${b.city}</p>
+        <p>Message : ${b.message}</p>
+      </div>
+    `;
+
+  });
+
 }

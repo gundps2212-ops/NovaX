@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body> 
+<body>  
+
     <div id="loader" class="loader-container">
         <div class="loader-ring"></div>
         <div class="loader-text">NOVAX</div>
@@ -156,6 +157,40 @@
             </div>
         </div>
     </section>
+    <section id="admin" class="admin-section">
+  <div class="container">
+    <h2 class="section-title">Admin <span class="text-red">Panel</span></h2>
+
+    <div class="admin-login glass-panel" id="admin-login">
+      <h3>Admin Login</h3>
+      <input type="text" id="adminUser" placeholder="Username">
+      <input type="password" id="adminPass" placeholder="Password">
+      <button class="btn-primary" onclick="adminLogin()">Login</button>
+    </div>
+
+    <div class="admin-dashboard hidden" id="admin-dashboard">
+      <div class="glass-panel">
+        <h3>Add New Car</h3>
+
+        <input type="text" id="carCompany" placeholder="Company">
+        <input type="text" id="carModel" placeholder="Model">
+        <input type="text" id="carPrice" placeholder="Price">
+        <input type="text" id="carFuel" placeholder="Fuel Type">
+        <input type="text" id="carMileage" placeholder="Mileage">
+        <input type="text" id="carImage" placeholder="Image URL">
+        <textarea id="carDetails" placeholder="Car Details"></textarea>
+
+        <button class="btn-primary" onclick="addCar()">Add Car</button>
+      </div>
+
+      <div class="glass-panel">
+        <h3>All Bookings</h3>
+        <button class="btn-secondary" onclick="loadBookings()">Load Bookings</button>
+        <div id="booking-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
     <footer class="footer">
         <div class="container footer-grid">
@@ -232,7 +267,7 @@
         <h3>Booking Confirmed!</h3>
         <p>Our concierge will contact you shortly.</p>
     </div>
-
-    <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
 </body>
 </html>
